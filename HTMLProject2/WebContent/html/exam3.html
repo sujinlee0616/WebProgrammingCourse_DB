@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- 
+<목록출력>
+
+1. <ul> <ol> <table>
+ - 모두 block 속성 ==> 넓이가 한 줄 다 차지함 
+ - table은 픽셀에 따라서 달라져서, 요즘은 table 대신 div를 많이 권장&사용하는 추세. 
+ 
+2. <dl> <dt> <dd>
+ - dl : data list
+ - dt : data title
+ - dd : data description
+ - ex) 
+   <dl>
+   		<dt></dt>
+   		<dd></dd>
+   </dl>
+ 
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>목록 출력</title>
+</head>
+<body>
+	<!-- ul : unordered list ==> 순서 無 -->
+	<ul>
+		<li>자바</li>
+		<li>오라클</li>
+		<li>HTML&CSS</li>
+	</ul>
+	<!-- ol : ordered list ==> 순서 有 -->
+	<ol>
+		<li>자바</li>
+		<li>오라클</li>
+		<li>HTML&CSS</li>
+	</ol>
+	<!-- 타입 변경 가능  -->
+	<ol type="A">
+		<li>자바</li>
+		<li>오라클</li>
+		<li>HTML&CSS</li>
+	</ol>
+	<h1>과정소개</h1>
+	<dl>
+   		<dt>자바</dt>
+   		<dd>데이터를 처리하는 과정입니다. </dd>
+   		<dt>오라클</dt>
+   		<dd>오라클은 RDBMS로, 데이터를 저장하거나 공유를 하는 목적으로 사용합니다.</dd>
+   		<dt>HTML,CSS</dt>
+   		<dd>HTML은 뼈대, CSS는 인테리어 같은 느낌입니다. 브라우저에 화면을 출력해주는 역할입니다.</dd>
+   		<dt>JSP</dt>
+   		<dd>HTML과 Java를 연결하는 역할입니다.</dd>
+   		<dt>Spring</dt>
+   		<dd>통합개발을 할 때 사용합니다.</dd>
+   		<dt>Kotlin</dt>
+   		<dd>모바일에 출력합니다.</dd>
+   </dl>  
+   
+</body>
+</html>
+

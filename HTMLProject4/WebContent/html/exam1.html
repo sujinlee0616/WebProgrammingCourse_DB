@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- 
+	입력창
+	
+	input : 
+		한줄입력  ===> 제목,아이디
+				 <input type=text size=10>
+		비밀번호입력  <input type=password size=20>
+		라디오버튼     <input type=radio>남자<input type=radio>여자
+		체크박스        <input type=checkbox>
+		파일              <input type=file size=30>
+		버튼            
+		  1) 일반버튼       <input type=button value="확인">
+		  2) 전송버튼       <input type=submit value="전송">
+		  3) 초기화버튼    <input type=reset value="취소">
+		날짜               <input type=date>
+		***데이터감추기   <input type=hidden> 
+		
+	select : 콤보박스  
+			<select>
+				<option>010</option>
+				<option>011</option>
+				<option>017</option>
+			</select>
+	textarea : 여러줄 입력
+			<textarea rows=10 cols=50></textarea>
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	ID:<input type="text" size=20><br>
+	PW:<input type="password" size=20><br>
+	라디오:<input type="radio" checked="checked">남자 <input type=radio>여자<br>
+	체크박스:<input type="checkbox">운동 <input type="checkbox">등산 <input type="checkbox">게임<br>
+	파일:<input type="file" size=30><br>
+	날짜:<input type="date" size=20><br>  <!-- 크롬,FF 에서만 사용가능 -->
+	버튼:<input type="button" value="확인">
+		<input type="submit" value="전송">
+		<input type="reset" value="초기화"><br>
+		<button>전송</button> <!-- submit버튼 -->
+		<input type="image" src="m1.png"><br> <!-- 이미지버튼(submit버튼) -->
+	숨김:<input type="hidden" size=20><br>
+	콤보:<select>
+			<option>서울</option>
+			<option>경기</option>
+			<option>인천</option>
+		</select><br>
+	내용:<textarea rows="10" cols="50"></textarea>
+</body>
+</html>
