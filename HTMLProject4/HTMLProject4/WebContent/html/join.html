@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- css읽기 -->
+<link rel="stylesheet" href="table.css">
+<script type="text/javascript">
+function postfind(){
+	window.open("post.jsp","postfind","width=700,height=400,scrollbars=yes");
+	// 
+}
+
+</script>
+</head>
+<body>
+	<center>
+		<h1>일반회원 가입신청</h1>
+		<!-- 데이터 전송 => form 태그 -->
+		<!-- 
+			1. Method	
+			 1) Get: 보내는 데이터를 URL 뒤에 첨부
+			 	(default) => 단순한 데이터 전송 (페이지 번호, 영화번호, 단순한 검색)
+			 2) Post: 내부 네트워크를 통해서 전송
+			 	보안, 로그인... (ID,PWD), 데이터가 많은 경우  
+			2. Action: 데이터를 받는 파일
+		 -->
+		 <!-- 
+		 	[input 태그의 속성]
+		 	- id, class, name
+		 	- name : 데이터를 다른 파일로 전송할 때 사용. 
+		  -->
+		<form method="post" action="join_ok.html" name=frm>
+			<table id="table_content" width=700>
+				<tr>
+					<th width="20%" align="right">일반회원아이디</th>
+					<td width="80%" align="left">
+						<input type="text" size="20" name="id" required autocomplete="off"> 
+						<!-- name 주면 GET 방식으로 데이터 넘겨줌  -->
+						<!-- required: 필수로 입력해야 하는 애 -->
+						<!-- autocomplete: 자동완성. 이전에 입력한 값이 하단에 리스트로 나타나는 것. --> 
+						<input type="button" value="중복아이디 검색" > 
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">일반회원이름</th>
+					<td width="80%" align="left">
+						<input type="text" size="20" name="name" required> 
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">비밀번호</th>
+					<td width="80%" align="left">
+						<input type="password" size="20">
+						<small>(8~20자의 영문대소문자,숫자,특수문자만 가능합니다)</small>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">비밀번호확인</th>
+					<td width="80%" align="left">
+						<input type="password" size="20">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">비밀번호힌트</th>
+					<td width="80%" align="left">
+						<select style="width: 170px">
+							<option>-선택하세요-</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">비밀번호정답</th>
+					<td width="80%" align="left">
+						<input type="text" size="20">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">전화번호</th>
+					<td width="80%" align="left">
+						<input type="text" size="4">-
+						<input type="text" size="6">-
+						<input type="text" size="6">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">핸드폰번호</th>
+					<td width="80%" align="left">
+						<input type="text" size="20">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">이메일주소</th>
+					<td width="80%" align="left">
+						<input type="text" size="20">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">소속정보</th>
+					<td width="80%" align="left">
+						<input type="radio" checked="checked">일반기업
+						<input type="radio">공공기관
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">소속명</th>
+					<td width="80%" align="left">
+						<input type="text" size="20">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">우편번호</th>
+					<td width="80%" align="left">
+						<input type="text" size="20" readonly name=post>
+						<input type="button" value="검색" onclick="postfind()">
+						<!-- readonly: 읽기 전용. 사용자가 직접 입력하지 못하게. 
+							ex) 우편번호: 검색해서 DB에 있는 값만 가지고 오게 함. -->
+						<!--  클릭했다면 js의 postfind()함수를 호출해라. -->
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">주소</th>
+					<td width="80%" align="left" >
+						<input type="text" size="30" readonly name=addr1>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" align="right">상세주소</th>
+					<td width="80%" align="left">
+						<input type="text" size="30">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="가입신청">
+						<input type="button" value="취소">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</center>
+</body>
+</html>

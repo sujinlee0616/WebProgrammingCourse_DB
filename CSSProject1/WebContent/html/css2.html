@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#t1 .aa{background-color: red;}
+	#t2 .aa{background-color: yellow;}
+	#t1 td{text-align: center;}
+	#t2 td{text-align: right;}						/*    CSS주석	*/ 
+	*{font-family: 맑은고딕; font-size: 12pt;}		/*    *: '모든'을 나타냄.    */ 
+	body{font-family: 맑은고딕; font-size: 8pt;}		/* 이렇게 해도 * 한 거랑 똑같은 효과 */           
+	#t1 {border-collapse: collapse;}		
+</style>
+<!-- 
+1. 선택자
+ - 태그 ===> img{스타일 적용}
+ - ID ===> #id{스타일 적용}
+ - CLASS ===> .CLASS명{스타일 적용}
+2. 여러개 태그 사용
+ - ','로 구분한다. ex) td,th,a{스타일 적용} 
+3. 여러개 ID 사용
+ - ','로 구분한다. ex) #aa,#bb,#cc{스타일 적용}
+4. 여러개 CLASS 사용
+ - ','로 구분한다. ex) .aa,.bb,.cc{스타일 적용}
+5. 계층구조
+ - 부모 자식 순서로 쓴다. 공백 두고 쓴다. ex) table tr td{스타일 적용}
+6. 소속관계
+ - '포함하는 애 > 포함된 애'로 표기한다. ex) table > tr {스타일 적용}
+7. 가상 선택자
+ - ex) a:hover
+ -->
+</head>
+<body>
+	<table border=1 width=350 id="t1">
+		<tr class="aa">
+			<th>이름</th>
+			<th>주소</th>
+			<th>전화</th>
+		</tr>
+		<tr>
+			<td>홍길동</td>
+			<td>서울</td>
+			<td>02-1234-5678</td>
+		</tr>
+	</table>
+	<table border=1 width=350 id="t2">
+		<tr class="aa">
+			<th>이름</th>
+			<th>주소</th>
+			<th>전화</th>
+		</tr>
+		<tr>
+			<td>심청이</td>
+			<td>경기</td>
+			<td>033-1234-5678</td>
+		</tr>
+	</table>
+	
+</body>
+</html>

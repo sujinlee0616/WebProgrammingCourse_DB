@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- 
+[CSS]
+1. 외부CSS: .css 파일
+	<link href="style.css" rel="stylesheet">
+2. 내부CSS: html파일의 head와 head 안에 style을 넣음
+	<head>
+		<style>
+			이 안에 스타일링을 합니다.
+		</style>
+	</head>
+3. 인라인CSS
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	/* h1,h2,h3,h4,h5,h6{color: blue; background-color: yellow; font-family: 맑은고딕;} */
+	/*주석입니다*/
+	.h{color: blue; background-color: yellow; font-family: 맑은고딕;}
+	#hh{color: red; background-color: cyan; font-family: 맑은고딕;}
+</style>
+</head>
+<body>
+	<!-- 
+		속성:값;
+		사용자 정의는 없고 지정된 속성만 사용 가능.
+		Ctrl+space 하면 갖고 있는 속성 나온다. 
+	 -->
+	<h1 id="hh">Hello CSS!!</h1>
+	<h1 class="h">Hello CSS!!</h1>
+	<h1>Hello CSS!!</h1>
+	<h1>Hello CSS!!</h1>
+	<h1 class="h">Hello CSS!!</h1>
+	<h1>Hello CSS!!</h1>
+</body>
+</html>
