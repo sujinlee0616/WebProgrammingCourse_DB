@@ -74,8 +74,8 @@ public class BoardDetailServlet extends HttpServlet {
 		// [수정, 삭제, 목록 버튼] 
 		out.println("<tr>");
 		out.println("<td colspan=4 align=right>");
-		out.println("<a href=\"#\">수정</a>&nbsp;");
-		out.println("<a href=\"#\">삭제</a>&nbsp;");
+		out.println("<a href=\"BoardUpdate?no="+vo.getNo()+"\">수정</a>&nbsp;");
+		out.println("<a href=\"BoardDelete?no="+vo.getNo()+"\">삭제</a>&nbsp;");
 		out.println("<a href=\"BoardListServlet\">목록</a>&nbsp;");
 		out.println("</td>");
 		out.println("</tr>");

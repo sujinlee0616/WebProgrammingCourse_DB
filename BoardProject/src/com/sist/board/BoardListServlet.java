@@ -58,7 +58,11 @@ public class BoardListServlet extends HttpServlet {
 		out.println("<center>");
 		out.println("<h1>자유게시판</h1>");
 		
-		// [테이블1]: 새 글 
+		// 검색어 가져오기 위해서 테이블을 form으로 감쌌다. --post 방식으로 넘겨야함!
+		// submit하면 form있어야!
+		out.println("<form method=post action=BoardFind>");
+		
+		// [테이블1]: '새 글' a 태그
 		out.println("<table id=\"table_content\" width=700>");
 		out.println("<tr>");
 		out.println("<td align=left>");
@@ -91,7 +95,7 @@ public class BoardListServlet extends HttpServlet {
 			out.println("</td>");
 			// (3) 작성자
 			out.println("<td width=15% align=center>"+vo.getName()+"</td>");
-			// (4)작성일
+			// (4) 작성일
 			out.println("<td width=20% align=center>"+vo.getRegdate()+"</td>");
 			// (5) 조회수 
 			out.println("<td width=10% align=center>"+vo.getHit()+"</td>");
@@ -104,13 +108,16 @@ public class BoardListServlet extends HttpServlet {
 		out.println("<tr>");
 		out.println("<td align=left>");
 		out.println("Search:");
-		out.println("<select>"); //콤보박스
-		out.println("<option>이름</option>");
-		out.println("<option>제목</option>");
-		out.println("<option>내용</option>");
+		out.println("<select name=fs>"); //콤보박스
+		// 검색구분이 뭔지 알기 위해 value값을 줬다. 
+		out.println("<option value=name>이름</option>");
+		out.println("<option value=subject>제목</option>");
+		out.println("<option value=title>내용</option>");
 		out.println("</select>");
 		out.println("<input type=text size=15>"); //인풋
-		out.println("<input type=button value=찾기>"); 
+		// 검색어를 보내기 위해  type=submit으로 바꿈 ===> submit있으니까 form으로 보내야...
+		out.println("<input type=submit value=찾기>");  
+
 		out.println("</td>");
 		out.println("<td align=right>");
 		out.println("<a href=\"BoardListServlet?page="+(curpage>1?curpage-1:curpage)+"\">&lt;이전&gt;</a>");  

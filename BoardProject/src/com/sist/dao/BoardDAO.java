@@ -95,8 +95,8 @@ public class BoardDAO {
 		{
 			getConnection();
 			String sql="SELECT CEIL(COUNT(*)/10.0) FROM board"; // (총 게시물 수 / 한 페이지당 게시물 갯수)를 올림하면 총 페이지 수.
-			ps=conn.prepareStatement(sql); // 오라클 전ㅅ농 
-					ResultSet rs=ps.executeQuery();
+			ps=conn.prepareStatement(sql); // 오라클 전송
+			ResultSet rs=ps.executeQuery();
 			rs.next();
 			total=rs.getInt(1);
 			rs.close();
@@ -158,12 +158,194 @@ public class BoardDAO {
 	}
 	
 	// 3) 추가하기 ==> INSERT
+	public void boardInsert(BoardVO vo) 
+	{
+		try {
+			getConnection();
+			String sql="INSERT INTO board(no,name,subject,content,pwd) "
+					+"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),?,?,?,?)"; 
+					//NVL 넣는 이유? 만약 다 삭제하면 0개 되니까...
+			//?: 채워 넣을, 사용자에게서 받은 값. 
+			ps=conn.prepareStatement(sql);
+			// 실행 전에 => ?에 값을 채운다
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			// 실행 요청
+			ps.executeUpdate(); //commit포함: executeUpdate 안에는 오토커밋 들어가있음. 
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+	}
 	
 	// 4) 수정하기 ==> UPDATE
+	// 4-1) 수정을 위해 입력된 데이터를 갖다줌
+	public BoardVO boardUpdateData(int no)
+	{
+		BoardVO vo=new BoardVO();
+		try {
+			getConnection();
+			
+			String sql="SELECT no,name,subject,content " 
+					+"FROM board "
+					+"WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			// ?에 값을 채운다
+			ps.setInt(1, no);
+			// 실행 요청 
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			vo.setNo(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			
+			rs.close();
+		} 
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo; 
+	}
+	
+	// 4-2) 실제 수정 => UPDATE ~ SET 
+	public boolean boardUpdate(BoardVO vo) {
+		boolean bCheck=false;
+		try {
+			getConnection();
+			
+			// (1) 비밀번호를 가지고 오고
+			String sql="SELECT pwd FROM board "
+					+"WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, vo.getNo());
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			
+			// (2) 비밀번호가 맞으면 수정하고, 틀리면 비번 틀렸다고 알려준다. 
+			if(db_pwd.equals(vo.getPwd())) 
+			{
+				bCheck=true;
+				sql="UPDATE board SET "
+						+"name=?,subject=?,content=? "
+						+"WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				//?에 값 채운다
+				ps.setString(1, vo.getName());
+				ps.setString(2, vo.getSubject());
+				ps.setString(3, vo.getContent());
+				ps.setInt(4, vo.getNo());
+				//실행
+				ps.executeUpdate();
+			}
+			else
+			{
+				bCheck=false;
+			}
+			
+		} 
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
 	
 	// 5) 삭제하기 ==> DELETE
+	public boolean boardDelete(int no,String pwd) {
+		boolean bCheck=false;
+		try {
+			getConnection();
+			
+			// (1) 비밀번호를 가지고 오고
+			String sql="SELECT pwd FROM board "
+					+"WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			
+			// (2) 비밀번호가 맞으면 수정하고, 틀리면 비번 틀렸다고 알려준다. 
+			if(db_pwd.equals(pwd)) 
+			{
+				bCheck=true;
+				sql="DELETE FROM board "
+						+"WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				//?에 값 채운다
+				ps.setInt(1, no);
+				//실행
+				ps.executeUpdate();
+			}
+			else
+			{
+				bCheck=false;
+			}
+			
+		} 
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
+	
 	
 	// 6) 찾기 ==> SELECT ~ LIKE 
+	// == 미완성 ========================================================================================
+	public ArrayList<BoardVO> boardFindData(String type, String q){
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		try {
+			getConnection();
+			String sql="SELECT no,subject,name,regdate,hit "
+					+"FROM board " 
+					+"ORDER BY no DESC"; //최신 글이 제일 최상단에 와야 하므로 no가 높은애부터 낮은애 순서로 출력 ==> DESC
+			// 페이지 기능 하지 말자. 
+			
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			
+			while (rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt(1));
+				vo.setSubject(rs.getString(2));
+				vo.setName(rs.getString(3));
+				vo.setRegdate(rs.getDate(4));
+				vo.setHit(rs.getInt(5));
+				list.add(vo);
+			}
+			
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		finally 
+		{
+			disConnection();
+		}
+		return list;
+	}
 	
 	
 	
