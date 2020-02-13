@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- 
+0. CSS를 사용하는 방법
+ 1) 외부 CSS: 파일
+ 2) 내부 CSS: 
+	<head>
+		<style type="text/css">
+	</head>
+ 3) INLINE CSS
+	<div style="">
+		
+1. 외부,내부 CSS
+ 1) 선택자(Selector) 	
+  - Jquery쓰려면 선택자 알아야.
+  - CSS를 적용할 태그를 찾는다.
+  (1) tag
+   - 형식: tag명 {속성:값; 속성:값; ...}
+   - 속성은 이미 다 정해져 있다. ==> 속성들을 알고 있어야 고칠 수 있음.
+   - 값도 어떠한 값이 들어와야 하는지 이미 정해져있다.   
+  (2) id명: 중복 불가. 하나의 id명은 하나의 요소에만 사용되어야 한다. 
+   - 형식: #id명 {속성:값; 속성:값; ...}
+  (3) class명: 중복 가능. 여러개의 요소가 동일한 클래스명을 가질 수 있다.  
+   - 형식: .class명 {속성:값; 속성:값; ...}
+  (4) *: 모든 태그.
+   - ex) 웹사이트의 폰트 지정 시.
+  (5) 가상 선택자: 
+   - ex) a:hover{}, h1:nth-child(2n+1)
+  (6) 소속
+  (7) 여러개의 태그나 클래스, 아이디명 
+  (8) 기타
+   - input[type="text"],input[type="button"]{속성:값;} 이런식으로도 코딩 가능하다. 
+  
+  
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div{width: 100px; height: 100px;}
+	#aa{border: 5px solid green;}
+	#bb{border: 5px dotted green;}
+	#cc{border: 5px dashed green;}
+	#dd{border: 5px double green;}
+	#ee{border: 5px ridge green;}
+	#aaa{padding: 20px; border:1px solid black;}
+	/*패딩순서 : 위 오른쪽 아래 왼쪽 */
+	/*마진-보더-패딩-콘텐츠-패딩-보더-마진*/
+	/*1em=16px=12pt=100%*/
+</style>
+</head>
+<body>
+	<div id="aaa">Box Model</div>
+	<div id="aa"></div>
+	<div id="bb"></div>
+	<div id="cc"></div>
+	<div id="dd"></div>
+	<div id="ee"></div>
+	<div id="ff"></div>
+	
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
