@@ -38,11 +38,11 @@ public class MusicDAO {
 		} catch (Exception ex) {}
 	}
 	
-	// =========================== 여기까지 계속 동일하므로 나중에 .jar 파일로 만들어버리자 =========================== 
+	// =========================== 여기까지(1.드라이버 등록~3.연결해제) 계속 동일하므로 나중에 .jar 파일 (라이브러리)로 만들어버리자 =========================== 
 	
 	// 4. 기능구현 - 음악싸이트
 	
-	// 1) 순위,state,idcrement,poster,title,가수명,album 출력 
+	// 1) 음악리스트 
 	// 여러개 출력 ==> VO가 여러개 ==> ArrayList 
 	public ArrayList<MusicVO> musicListData(int page){
 		ArrayList<MusicVO> list = new ArrayList<MusicVO>();
@@ -115,6 +115,7 @@ public class MusicDAO {
 			return total;
 		}
 		
+		// =========================================================================================================
 		// 2) 음악 상세화면
 		// rank,state,idcrement,title,singer,poster,key,mno
 		public MusicVO musicDetailData(int no)
@@ -122,7 +123,16 @@ public class MusicDAO {
 			MusicVO vo=new MusicVO();
 			try {
 				getConnection();
-				String sql="SELECT rank,state,idcrement,title,singer,poster,key,mno,album "
+				// (1) 조회수 증가시키기
+				String sql="UPDATE music_genie SET "
+						+"hit=hit+1 "
+						+"WHERE mno=?";
+				ps=conn.prepareStatement(sql); // ps를 먼저 생성하고
+				ps.setInt(1, no); // ?에 값을 채워넣는다. 
+				ps.executeUpdate(); // 실행 요청한다.
+				
+				// (2) 상세화면에 들어갈 데이터 가져오기
+				sql="SELECT rank,state,idcrement,title,singer,poster,key,mno,album "
 						+"FROM music_genie "
 						+"WHERE mno=?";
 				ps=conn.prepareStatement(sql);
@@ -151,11 +161,8 @@ public class MusicDAO {
 			return vo;
 		}	
 	
-		
-		
 		// =========================================================================================================
-		
-		// 2) 로그인 
+		// 3) 로그인 
 		public String isLogin(String id,String pwd)
 		{
 			String result = "";
@@ -207,7 +214,8 @@ public class MusicDAO {
 			
 		}
 		
-		// 3) 댓글보기 SELECT => WHERE
+		// =========================================================================================================
+		// 4) 댓글보기: SELECT => WHERE
 		public ArrayList<MusicReplyVO> replyListData(int mno)
 		{
 			ArrayList<MusicReplyVO> list = new ArrayList<MusicReplyVO>();
@@ -244,8 +252,8 @@ public class MusicDAO {
 			return list;
 		}
 		
-		
-		// 4) 댓글쓰기 INSERT 
+		// =========================================================================================================
+		// 5) 댓글쓰기: INSERT 
 		public void replyInsert(MusicReplyVO vo)
 		{
 			try 
@@ -270,7 +278,8 @@ public class MusicDAO {
 			}
 		}
 		
-		// 5) 댓글삭제 DELETE 
+		// =========================================================================================================
+		// 6) 댓글삭제: DELETE 
 		// 로그인한 사람이 자기가 쓴 댓글을 삭제 가능 (별도의 비번 필요X) 
 		public void replyDelete(int no)
 		{
@@ -292,14 +301,64 @@ public class MusicDAO {
 			}
 		}
 		
-		
-		// 6) 댓글수정 UPDATE
+		// =========================================================================================================
+		// 7) 댓글수정: UPDATE
 		// 로그인한 사람이 자기가 쓴 댓글을 수정 가능 (별도의 비번 필요X) 
+		
+		
+		// =========================================================================================================
+		// 8) 인기TOP5: hit 수가 많은 제목 5개 가져오기 (인라인뷰 사용)
+		public ArrayList<MusicVO> musicTop5()
+		{
+			ArrayList<MusicVO> list = new ArrayList<MusicVO>();
+			try {
+				getConnection();
+				String sql="SELECT poster,title,no,rownum "
+						+"FROM (SELECT poster,title,RANK() OVER(ORDER BY hit DESC) as no "
+								+"FROM music_genie ORDER BY hit DESC) "
+						+"WHERE rownum<=5";
+				ps=conn.prepareStatement(sql);
+				// ?에 채울 값 없음 
+				ResultSet rs=ps.executeQuery(); // 실행
+				
+				while(rs.next())
+				{
+					MusicVO vo = new MusicVO();
+					vo.setPoster(rs.getString(1));
+					vo.setTitle(rs.getString(2));
+					vo.setRank(rs.getInt(3));  //이게 no임 
+					// 왜 rownum은 안 받는가? 위의  sql 문장에 있다고 무조건 다 받을 필요 없다. 
+					// 보통 rownum은 게시판에서 이전/다음 게시물 구현할 때 많이 사용함. 
+					list.add(vo);
+				}
+				rs.close();
+				
+			} 
+			catch (Exception ex) 
+			{
+				ex.printStackTrace();
+			}
+			finally
+			{
+				disConnection();
+			}
+			return list;
+		}		
 		
 		
 }
 
 
+
+/*
+ * ps.executeUpdate();
+ * 	 - 오라클 데이터가 변경되었을 때 사용 (INSERT, UPDATE, DELETE)
+ *   - 커밋이 포함되어 있다.
+ *    
+ * ps.executeQuery();
+ * 	 - 오라클 데이터가 변경되지 않을 때 사용 (SELECT) 
+ *   - 커밋이 포함되어 있지 않다. 
+ */
 
 
 

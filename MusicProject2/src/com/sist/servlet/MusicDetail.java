@@ -39,6 +39,7 @@ public class MusicDetail extends HttpServlet {
 		MusicVO vo = dao.musicDetailData(Integer.parseInt(mno));
 		
 		ArrayList<MusicReplyVO> list = dao.replyListData(Integer.parseInt(mno)); //어떤 mno에 대해서는 댓글이 없을 수도 있음 ==> 사이즈가 0 이상일 때 출력해야.
+		ArrayList<MusicVO> topList = dao.musicTop5(); 
 		
 		// ===============================================================
 		// 2. HTML 출력한다. 
@@ -48,7 +49,7 @@ public class MusicDetail extends HttpServlet {
 		out.println("<head>");
 		out.println("<link rel=stylesheet href=\"css/bootstrap.min.css\">");
 		out.println("<style type=text/css>");
-		out.println(".col-sm-9{");
+		out.println(".col-md-9{");
 		out.println("margin: 0px auto;");
 		out.println("width: 900px;");
 		out.println("}");
@@ -84,9 +85,12 @@ public class MusicDetail extends HttpServlet {
 		out.println("</script>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<div class=container>");
+		out.println("<div class=container-fluid>");
 		out.println("<h1>&lt;"+vo.getTitle()+"&gt; 상세보기</h1>");
-		out.println("<div class=col-sm-9>");
+		
+		// ======================================================================================================
+		// [좌측영역] 게시글 상세페이지
+		out.println("<div class=col-md-9>");
 		out.println("<table class=\"table table-bordered\">");
 		// 1. 동영상 
 		out.println("<tr>");
@@ -215,7 +219,25 @@ public class MusicDetail extends HttpServlet {
 		}		
 		out.println("</div>");
 		
-		out.println("<div class=col-sm-3>");
+		// ======================================================================================================
+		// [우측영역] 인기 Top5
+		out.println("<div class=col-md-3>");
+		out.println("<table class=\"table table-striped\">");
+		out.println("<caption>인기순위 Top5</caption>");
+		for(MusicVO tvo:topList) //위에서 vo 이미 썼기 때문에 vo 쓸 수 X. 
+		{
+			out.println("<tr>");
+			// 1) 순위 
+			out.println("<td>"+tvo.getRank()+"</td>"); 
+			// 2) 앨범 포스터
+			out.println("<td>");
+			out.println("<img src=\""+tvo.getPoster()+"\" width=35 height=35>");
+			out.println("</td>");
+			// 3) 노래제목
+			out.println("<td>"+tvo.getTitle()+"</td>");
+			out.println("</tr>");
+		}
+		out.println("</table>");
 		out.println("</div>");
 		
 		out.println("</div>");
