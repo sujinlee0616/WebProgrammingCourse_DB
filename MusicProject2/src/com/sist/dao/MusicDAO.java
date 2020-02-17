@@ -176,7 +176,7 @@ public class MusicDAO {
 					result="NOID";
 				}
 				else
-					sql="SELECT pwd, name FROM music_member "
+					sql="SELECT pwd, name, sex FROM music_member "
 					+ "WHERE id=?";
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, id);
@@ -184,10 +184,11 @@ public class MusicDAO {
 				rs.next();				
 				String db_pwd=rs.getString(1);
 				String name=rs.getString(2);
+				String sex=rs.getString(3);
 				rs.close();
 				
 				if(db_pwd.equals(pwd)){
-					result=name;
+					result=name+"|"+sex;
 				}
 				else
 				{
@@ -206,13 +207,96 @@ public class MusicDAO {
 			
 		}
 		
+		// 3) 댓글보기 SELECT => WHERE
+		public ArrayList<MusicReplyVO> replyListData(int mno)
+		{
+			ArrayList<MusicReplyVO> list = new ArrayList<MusicReplyVO>();
+			try {
+				getConnection();
+				String sql="SELECT no,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS'), "
+						+"(SELECT sex FROM music_member mm WHERE mm.id=mr.id) " // 스칼라 서브쿼리로 성별을 가지고 왔음 
+						+"FROM music_reply mr "
+						+"WHERE mno=?";
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, mno);
+				// 실행 
+				ResultSet rs = ps.executeQuery();
+				while(rs.next())
+				{
+					MusicReplyVO vo = new MusicReplyVO();
+					vo.setNo(rs.getInt(1));
+					vo.setId(rs.getString(2));
+					vo.setName(rs.getString(3));
+					vo.setMsg(rs.getString(4));
+					vo.setDbDay(rs.getString(5));
+					vo.setSex(rs.getString(6));
+					list.add(vo);
+				}
+				rs.close();
+			} catch (Exception ex) 
+			{
+				ex.printStackTrace();
+			}
+			finally 
+			{
+				disConnection();
+			}
+			return list;
+		}
 		
-		// 3) 댓글쓰기 INSERT 
-		// 4) 댓글수정 UPDATE
+		
+		// 4) 댓글쓰기 INSERT 
+		public void replyInsert(MusicReplyVO vo)
+		{
+			try 
+			{
+				getConnection();
+				String sql="INSERT INTO music_reply VALUES(mr_no_seq.nextval,?,?,?,?,SYSDATE) "; //? : 사용자가 보내주는 데이터.
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, vo.getMno());
+				ps.setString(2, vo.getId());
+				ps.setString(3, vo.getName());
+				ps.setString(4, vo.getMsg());
+				
+				ps.executeUpdate();
+			} 
+			catch (Exception ex) 
+			{
+				ex.printStackTrace();
+			}
+			finally
+			{
+				disConnection();
+			}
+		}
+		
 		// 5) 댓글삭제 DELETE 
-		// 6) 댓글보기 SELECT => WHERE
+		// 로그인한 사람이 자기가 쓴 댓글을 삭제 가능 (별도의 비번 필요X) 
+		public void replyDelete(int no)
+		{
+			try 
+			{
+				getConnection();
+				String sql="DELETE FROM music_reply WHERE no=?"; //? : 사용자가 보내주는 데이터.
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, no);				
+				ps.executeUpdate();
+			} 
+			catch (Exception ex) 
+			{
+				ex.printStackTrace();
+			}
+			finally
+			{
+				disConnection();
+			}
+		}
 		
-	
+		
+		// 6) 댓글수정 UPDATE
+		// 로그인한 사람이 자기가 쓴 댓글을 수정 가능 (별도의 비번 필요X) 
+		
+		
 }
 
 

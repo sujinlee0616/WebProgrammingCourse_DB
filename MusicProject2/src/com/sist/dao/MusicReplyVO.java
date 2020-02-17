@@ -22,13 +22,17 @@ package com.sist.dao;
  */
 import java.util.*;
 public class MusicReplyVO {
+	// 1. 테이블 컬럼 
 	private int no;
 	private int mno;
 	private String id;
 	private String name;
 	private String msg;
 	private Date regdate;
+	
+	// 2. 테이블 컬럼이 아니더라도 필요한 변수를 추가 가능하다.
 	private String dbDay; //댓글작성 시간을 추가하기 위해 dbDay를 만들었다. ★★★
+	private String sex; 	
 	
 	//reply를 따로 만드는 이유: 어떤 위치든 다 달 수 있게 하기 위하여. 재사용이 쉬움. 
 	
@@ -75,6 +79,12 @@ public class MusicReplyVO {
 		this.dbDay = dbDay;
 	}
 	
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 	
 	
 }

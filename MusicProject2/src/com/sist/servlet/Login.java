@@ -1,6 +1,8 @@
 package com.sist.servlet;
 
 import java.io.*;
+import java.util.StringTokenizer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -93,9 +95,11 @@ public class Login extends HttpServlet {
 			
 			// id,name 
 			session.setAttribute("id", id); 
-			session.setAttribute("name", result); // 왜 name을 result로 가져오나? DAO에서 ID/비번 다 일치하면 result에 name을 싣었기 때문. 
+			StringTokenizer st = new StringTokenizer(result,"|");
+			session.setAttribute("name", st.nextToken()); // 왜 name을 result로 가져오나? DAO에서 ID/비번 다 일치하면 result에 name을 싣었기 때문. 
 			// setAttribute(String key, Object value) 
 			// : 해당 내장 객체의 속성(attribute)값을 설정하는 메소드로, 속성명에 해당하는 key 매개 변수에, 속성값에 해당하는 value 매개 변수의 값을 지정한다. 
+			session.setAttribute("sex", st.nextToken());
 			
 			// 파일 이동
 			response.sendRedirect("MusicList");
