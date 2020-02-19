@@ -1,0 +1,132 @@
+package com.sist.dao;
+import java.util.*;
+import java.sql.*;
+import javax.sql.*;
+import javax.naming.*;
+
+public class EmpDAO {
+	private Connection conn;
+	private PreparedStatement ps;
+	private static EmpDAO dao;
+	
+	// 1. 미리 생성된 Connection 객체를 얻어온다. 
+	/*
+	 * Connection[] conn={100,200,300,400,500};
+	 * boolean[] sw={false,false,false,false,false};
+	 * if(요청.equals("jdbc/oracle"))
+	 * {
+	 * 	   	for(int i=0;i<5;i++)
+	 * 		{
+	 * 			if(sw[i]==false)
+	 * 			{
+	 * 				return conn[i];
+	 * 				break;
+	 * 			}
+	 * 		}
+	 * }
+	 */
+	// https://linked2ev.github.io/spring/2019/08/14/Spring-3-%EC%BB%A4%EB%84%A5%EC%85%98-%ED%92%80%EC%9D%B4%EB%9E%80/
+	
+	public void getConnection() 
+	{
+		try 
+		{
+			// 1) 탐색기를 연다 
+			Context init=new InitialContext(); //JNDI(Java Naming Directory Interface) 
+			
+			// 2) 저장된 폴더 위치로 접근한다. 
+			Context c=(Context)init.lookup("java://comp//env"); 
+			// C드라이브 안에 "java://env/comp" 이 주소로 저장된 폴더를 달라 
+			// java://env/comp <== 이게 폴더인데, 아무도 모르는 폴더를 만들어야 하니까 이렇게 만든 것.
+			
+			// 3) 실제 Connection 주소 요청 
+			DataSource ds=(DataSource)c.lookup("jdbc/oracle");
+			// 위의 2)번의 "java://env/comp" 안에 "jdbc/oracle"가 저장되어 있다. 
+			// 오라클 정보와 관련된 모든 정보를 전송(DataSource)
+			// Connection개체의 이름(별칭): jdbc/oracle
+			
+			// 4) 주소값을 넘겨받는다.  
+			conn=ds.getConnection();
+			
+		} 
+		catch (Exception ex) {}
+	}
+	
+	// 2. Connection 반환
+	public void disConnection() 
+	{
+		try 
+		{
+			if(ps!=null) ps.close();
+			if(conn!=null) conn.close();
+		} catch (Exception ex) {}
+	}
+	
+	// 3. 기능 
+	public ArrayList<EmpVO> empAllData()
+	{
+		ArrayList<EmpVO> list = new ArrayList<EmpVO>();
+		try 
+		{
+			getConnection(); //사용할 주소를 얻어온다. 
+			/*String sql="SELECT empno,ename,job,hiredate,sal,dname,loc "
+					+ "FROM emp,dept "
+					+ "WHERE emp.deptno=dept.deptno";*/
+			String sql="SELECT * FROM emp_dept";
+			// VIEW를 써서 쿼리문장을 단순하게 만들었다. 
+			// VIEW를 어떻게 만들었는지: 20200219_VIEW.sql 파일 참고. 
+			// VIEW만 보고서는 어떤 데이터를 사용했는지 알 수 없다 ==> 보안이 우수함
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				EmpVO vo=new EmpVO();
+				vo.setEmpno(rs.getInt(1));
+				vo.setEname(rs.getString(2));
+				vo.setJob(rs.getString(3));
+				vo.setHiredate(rs.getDate(4));
+				vo.setSal(rs.getInt(5));
+				vo.getDvo().setDname(rs.getString(6));
+				vo.getDvo().setLoc(rs.getString(7));
+				
+				list.add(vo);			
+			}
+			rs.close();
+		} 
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally 
+		{
+			disConnection(); //반환
+		}
+		return list;
+	}
+
+}
+
+/*
+ * 2020.02.19 (수): JDBC → DBCP
+ *  - 이때까지 계속 JDBC로 코딩했으나, 이제는 DBCP로 코딩한다.
+ *  
+ *  <JDBC>
+ *  - 우리가 이때까지 사용했던 방식
+ *  - DB에 직접 연결해서 처리하는 방식.(JDBC) 
+ *  - 드라이버(Driver)를 로드하고 커넥션(connection) 객체를 받아온다.
+ *    그러면 매번 사용자가 요청을 할 때마다 드라이버를 로드하고 커넥션 객체를 생성하여 연결하고 종료하기 때문에 매우 비효율적이다.
+ *  - 이런 문제를 해결하기 위해서 커넥션풀(DBCP)를 사용한다.
+ *  
+ *  <DBCP>
+ *  - 오늘 사용하고 있는 방식.
+ *  - 웹 컨테이너(WAS)가 실행되면서 DB와 미리 connection(연결)을 해놓은 객체들을 pool에 저장해두었다가
+ *    클라이언트 요청이 오면 connection을 빌려주고, 처리가 끝나면 다시 connection을 반납받아 pool에 저장하는 방식.
+ *    
+ */
+
+
+
+
+
+
+
+
