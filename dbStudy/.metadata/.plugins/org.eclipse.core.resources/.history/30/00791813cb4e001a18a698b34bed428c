@@ -1,0 +1,14 @@
+package com.sist.dao;
+/*
+ * NO      NOT NULL NUMBER       
+MNO              NUMBER       
+ID               VARCHAR2(20) 
+NAME    NOT NULL VARCHAR2(51) 
+MSG     NOT NULL CLOB         
+REGDATE          DATE  
+ * 
+ * 
+ */
+public class MusicReplyVO {
+
+}

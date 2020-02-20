@@ -1,0 +1,13 @@
+package com.sist.dao;
+
+public class DeptVO {
+
+}
+
+/*
+ * 
+ * <VIEW>
+ *  - 가상테이블
+ *  - 보안에 뛰어나다
+ *  - 
+ */

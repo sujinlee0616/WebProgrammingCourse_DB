@@ -1,0 +1,9 @@
+INDEX VERSION 1.131
+C:\dbDev\dbStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3291400136.index
+\20200203-HTMLProject1\src
+C:\dbDev\dbStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1728378214.index
+\BoardProject\src
+C:\dbDev\dbStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3893616265.index
+\HTMLProject4\src
+C:\dbDev\dbStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\482161157.index
+\HTMLProject1\src

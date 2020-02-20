@@ -1,0 +1,13 @@
+package com.sist.dao;
+import java.util.*;
+import com.sist.dao.*;
+import com.sist.vo.*;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		MovieDAO dao = MovieDAO.newInstance();
+
+	}
+
+}

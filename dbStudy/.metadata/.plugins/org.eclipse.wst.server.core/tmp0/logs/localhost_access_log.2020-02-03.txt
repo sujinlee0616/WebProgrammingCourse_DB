@@ -1,0 +1,15 @@
+127.0.0.1 - - [03/Feb/2020:17:05:54 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:05:54 +0900] "GET /HTMLProject1/html/html1.html HTTP/1.1" 200 2414
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:06:55 +0900] "GET /HTMLProject1/html/html1.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:09:05 +0900] "GET /HTMLProject1/html/html1.html HTTP/1.1" 200 2414
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:09:05 +0900] "GET /favicon.ico HTTP/1.1" 404 761
+127.0.0.1 - - [03/Feb/2020:17:36:01 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:36:02 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 200 615
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:36:02 +0900] "GET /favicon.ico HTTP/1.1" 404 761
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:37:08 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 200 634
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:37:27 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 200 635
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:45:58 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 500 2517
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:47:58 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 500 2517
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:49:47 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 500 2517
+127.0.0.1 - - [03/Feb/2020:17:52:23 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [03/Feb/2020:17:52:24 +0900] "GET /HTMLProject1/html/Music.jsp HTTP/1.1" 200 19014

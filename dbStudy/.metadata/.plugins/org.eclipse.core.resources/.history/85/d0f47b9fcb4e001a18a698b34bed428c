@@ -1,0 +1,26 @@
+package com.sist.dao;
+/*
+	[music_member 테이블]
+	NO      NOT NULL NUMBER       
+	MNO              NUMBER       
+	ID               VARCHAR2(20) 
+	NAME    NOT NULL VARCHAR2(51) 
+	MSG     NOT NULL CLOB         
+	REGDATE          DATE
+	===================================
+	이름(날짜, 시간) 			수정 삭제 댓글     ===> 날짜,시간: TO_CHAR(regdate, YYYY-MM-DD HH24:MI:SS) 
+	===================================
+	댓글
+	
+	===================================
+	===================================
+	이름(날짜, 시간)			수정 삭제 댓글
+	===================================
+	댓글
+	
+	===================================
+  
+ */
+public class MusicReplyVO {
+
+}

@@ -1,0 +1,198 @@
+// <JDBC + DBCP>
+// 1. JDBC 사용 부분
+// - FoodDAO 생성자 + getConnection의 try 부분의 conn 부분 ===> 데이터 수집 이후 주석처리했음.
+// - FoodManager가 웹프로그래밍이 아니라서 데이터 수집 시 DBCP 쓸 수 X ==> JDBC 사용했음. 
+// 2. DBCP 사용 부분
+// - 나머지 다 
+
+package com.sist.dao;
+import java.util.*;
+import java.sql.*;
+import javax.naming.*;
+import javax.sql.*;
+import com.sist.manager.*;
+
+public class FoodDAO {
+	private Connection conn;
+	private PreparedStatement ps;
+	private static FoodDAO dao; //싱글톤-DAO 객체를 하나만 만들거다. 
+	private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
+	
+	// [JDBC] 
+	// JDBC 사용해서 Application 돌려서 데이터 수집한 부분  
+	public FoodDAO()
+	{
+		try 
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} 
+		catch (Exception ex) 
+		{
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	// [DBCP]
+	// 1. 연결-getConnection() 2. disConnection(), 3. DAO newInstance() 4.기능
+	
+	// 1. 연결: 이미 생성된되어 있는 Connection 객체를 얻어온다. 	
+	public void getConnection()
+	{
+		try 
+		{
+			//[JDBC 코드]
+			conn=DriverManager.getConnection(URL,"hr", "happy");
+			
+			//[DBCP]
+			/*Context init=new InitialContext(); // JNDI reg
+			Context c=(Context)init.lookup("java://comp//env");
+			DataSource ds=(DataSource)c.lookup("jdbc/oracle");
+			conn=ds.getConnection();*/
+			
+		} 
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+	}
+	// 2. 반환 
+	public void disConnection() 
+	{
+		try {
+			// 닫기 => ps,conn
+			// close는 예외처리 안 하면 오류남 (compile exception)
+			if(ps!=null) ps.close();
+			if(conn!=null) conn.close();
+		} 
+		catch (Exception ex) {}
+		
+	}
+	
+	// 3.DAO를 각 사용자당 한 개만 사용이 가능하게 만든다. ==> 싱글톤 
+	public static FoodDAO newInstance()
+	{
+		if(dao==null)
+			dao=new FoodDAO();
+		return dao;
+	}
+	
+	// 4. 기능(오라클 연동) 
+	// 1) 데이터 수집 - JDBC 사용 (메인 쓰니까)
+	public void categoryInsert(CategoryVO vo)
+	{
+		try 
+		{
+			getConnection();
+			String sql="INSERT INTO category VALUES(?,?,?,?,?)";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, vo.getCateno());
+			ps.setString(2, vo.getTitle());
+			ps.setString(3, vo.getSubject());
+			ps.setString(4, vo.getPoster());
+			ps.setString(5, vo.getLink());
+			
+			ps.executeUpdate(); //INSERT ==> executeUpdate()
+		} 
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+	}
+	
+	// 2) 
+	public ArrayList<CategoryVO> categoryAllData()
+	{
+		ArrayList<CategoryVO> list = new ArrayList<CategoryVO>();
+		try 
+		{
+			getConnection();
+			String sql="SELECT cateno,title,subject,poster "
+					+ "FROM category "
+					+ "ORDER BY cateno ASC";
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery(); //INSERT 없으니까 updateQuery아님. SELECT니까 executeQuery임.   
+			while(rs.next())
+			{
+				CategoryVO vo=new CategoryVO();
+				vo.setCateno(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setSubject(rs.getString(3));
+				vo.setPoster(rs.getString(4));
+				list.add(vo);
+			}
+			rs.close();
+		} 
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		
+		return list;
+	}
+	
+	// 3) foodhouse 테이블에 데이터 삽입 - foodAllData 파일... 
+	public void foodHoseInsert(FoodHouseVO vo)
+	{
+		try 
+		{
+			/*NO      NOT NULL NUMBER         
+CNO              NUMBER         
+TITLE   NOT NULL VARCHAR2(200)  
+SCORE   NOT NULL NUMBER(2,1)    
+ADDRESS NOT NULL VARCHAR2(200)  
+TEL     NOT NULL VARCHAR2(30)   
+TYPE    NOT NULL VARCHAR2(100)  
+PRICE            VARCHAR2(100)  
+IMAGE   NOT NULL VARCHAR2(2000) 
+GOOD             NUMBER         
+SOSO             NUMBER         
+BAD              NUMBER         
+TAG              VARCHAR2(2000) 
+			 * 
+			 */
+			getConnection();
+			String sql="INSERT INTO foodhose VALUES("
+					+ "foodhouse_no_seq.nextval,?,?,?,?,"
+					+ "?,?,?,?,?,?,?,?)";
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, vo.getCno());
+			ps.set
+			
+			ps.executeUpdate(); //INSERT ==> executeUpdate()
+		} 
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+	}
+
+}
+
+
+/*
+ * 2020.02.20 (목) 
+ * 
+ * [참고] MyBatis
+ *   - MyBatis에서는 <dataSource type="POOLED"> 이런식으로 쓴다. 
+ *     ==> getConnection, disConnection 만들 필요 없음. 
+ *   - MyBatis에서는 POOLED랑 UNPOOLED가 있음. 
+ *   
+ */
+
+
+
+
+

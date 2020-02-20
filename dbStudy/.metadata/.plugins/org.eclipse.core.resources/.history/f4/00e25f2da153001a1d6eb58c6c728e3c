@@ -1,0 +1,55 @@
+package com.sist.view;
+
+import java.io.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+import com.sist.dao.*;
+import com.sist.manager.*;
+
+@WebServlet("/FoodMainServlet")
+public class FoodMainServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8"); 
+		PrintWriter out=response.getWriter(); 
+		
+		FoodDAO dao=FoodDAO.newInstance();
+		ArrayList<CategoryVO> list=dao.categoryAllData();
+		
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
+		out.println("<style type=text/css>");
+		out.println(".row{");
+		out.println("margin: 0px auto;");
+		out.println("}");
+		out.println("</style>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<div class=container>");
+		out.println("<div class=row>");
+		for(CategoryVO vo:list)
+		{
+			out.println("<div class=\"col-md-3\">");
+			out.println("<div class=\"panel panel-default panel-primary\">");
+			out.println("<div class=\"panel-heading\">"+vo.getTitle()+"</div>");
+			out.println("<div class=\"panel-body\">");
+			out.println("<img src=\""+vo.getPoster()+"\" width=100%>");
+			out.println("</div>");
+			out.println("</div>");
+			out.println("</div>");
+		}
+		out.println("</div>");
+		out.println("</div>");
+		out.println("</body>");
+		out.println("</html>");
+		
+		
+	}
+
+}

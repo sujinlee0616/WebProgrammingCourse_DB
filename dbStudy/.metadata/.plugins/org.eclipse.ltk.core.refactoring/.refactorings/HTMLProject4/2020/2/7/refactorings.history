@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;table.css&apos; to &apos;css&apos;&#x0D;&#x0A;- Original project: &apos;HTMLProject4&apos;&#x0D;&#x0A;- Destination element: &apos;css&apos;&#x0D;&#x0A;- Original element: &apos;table.css&apos;" description="Copy file" element1="WebContent/html/table.css" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1581387072486" target="/BoardProject/WebContent/css" units="0" version="1.0"/>
+</session>

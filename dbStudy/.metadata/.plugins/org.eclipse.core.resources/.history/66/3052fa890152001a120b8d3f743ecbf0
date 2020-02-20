@@ -1,0 +1,18 @@
+package com.sist.dao;
+import java.util.*;
+import com.sist.dao.*;
+import com.sist.vo.*;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		MovieDAO dao = MovieDAO.newInstance();
+		ArrayList<MovieVO> list=dao.movieListData(2, 2); //int page=1, int type=2 ==> 개봉예정작 1페이지
+		for(MovieVO vo:list)
+		{
+			System.out.println(vo.getMno()+" "+vo.getTitle());
+		}
+
+	}
+
+}
