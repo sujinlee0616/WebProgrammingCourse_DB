@@ -1,3 +1,4 @@
+// 메인 - 여러개의 카테고리 노출 
 package com.sist.view;
 
 import java.io.*;
@@ -52,13 +53,12 @@ public class FoodMainServlet extends HttpServlet {
 			out.println("<div class=\""+color+"\">");
 			out.println("<div class=\"panel-heading\">"+vo.getTitle()+"<br>"+vo.getSubject()+"</div>");
 			out.println("<div class=\"panel-body\">");
-			out.println("<a href=\"FoodCateListServlet?cno=?"+vo.getCateno()+"\">");
+			out.println("<a href=\"FoodListServlet?cno="+vo.getCateno()+"\">"); //getParameter에 여기서 쓴 :"cno"가 들어간다. 
 			out.println("<img src=\""+vo.getPoster()+"\" width=100% class=img-rounded>");
 			out.println("</a>");
 			out.println("</div>");
 			out.println("</div>");
-			out.println("</div>");
-			
+			out.println("</div>");			
 			i++;
 		}
 		out.println("</div>");

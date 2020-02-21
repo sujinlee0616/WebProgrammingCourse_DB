@@ -1,3 +1,4 @@
+// 연습용 view - 맛집서비스 아님
 package com.sist.view;
 
 import java.io.IOException;

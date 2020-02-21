@@ -39,13 +39,17 @@ public class NewsServlet extends HttpServlet {
 		 *     ex) 체크박스 UI에서 여러개 클릭 
 		 */
 		
+		// ===============================================================
+		// 2. DAO 연결 - 요청에 해당되는 DAO 연결.
+		// ===============================================================
+		
 		// DAO 연결
 		MovieDAO dao = MovieDAO.newInstance();
 		ArrayList<NewsVO> list = dao.newsListData(curpage); 
 		int totalpage=dao.newsTotalPage();
 		
 		// ===============================================================
-		// 2. HTML 출력한다. 
+		// 3. HTML 출력한다. 
 		// ===============================================================
 		
 		out.println("<html>");

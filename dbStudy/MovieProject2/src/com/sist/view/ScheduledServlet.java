@@ -31,12 +31,15 @@ public class ScheduledServlet extends HttpServlet {
 			strPage="1";
 		int curpage=Integer.parseInt(strPage);
 		
+		// ===============================================================
+		// 2. DAO 연결 - 요청에 해당되는 DAO 연결.
+		// ===============================================================
 		// DAO 연결
 		MovieDAO dao = MovieDAO.newInstance();
 		ArrayList<MovieVO> list = dao.movieListData(curpage, 2); //int page=curpage, int type=2(개봉예정작)
 		
 		// ===============================================================
-		// 2. HTML 출력한다. 
+		// 3. HTML 출력한다. 
 		// ===============================================================
 			
 		out.println("<html>");
