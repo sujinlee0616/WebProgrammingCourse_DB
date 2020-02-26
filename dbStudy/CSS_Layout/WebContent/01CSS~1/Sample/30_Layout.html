@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>웹포트</title>
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Yeon+Sung&display=swap" rel="stylesheet">
+<style type="text/css">
+	header{
+		width: 90%; margin: 0px auto;
+		border: 1px solid #CCCCCC;
+		overflow: hidden; /* 부모가 자식꺼에 맞춰진다. */
+		height: 300px;
+	}
+	header > #gnb{
+		width:600px; border: 0px solid blue;
+		float: left;
+	}
+	
+	header > #lnb{
+		width:600px; border: 0px solid red;
+		float: right; position: relative; top: 200px; 
+	}
+	header li {list-style-type:none; }
+	
+	header a{
+		text-decoration: none; 
+		font-family: 'Yeon Sung';
+		}
+	
+	header > #gnb li, header > #lnb  li {
+		 border: 1px dotted #CCCCCC; height: 30px;
+		 text-align: center; line-height: 30px; float: left; 
+		 /* width: 100px;  */
+		 width: 19%; 
+		 
+	}
+	
+	header > #gnb > ul{
+		padding-left: 0px;
+	}
+	header > #lnb > ul{
+		padding-right: 0px;
+	} 
+	/*relative는 margin/padding 쓸 수 X */ 
+	
+	#content {
+		width: 90%; margin: 2px auto;
+		border: 1px solid #CCCCCC;
+		overflow: hidden;
+		font-family: 'Do Hyeon';
+	}
+	#content > #section, #content > #aside {
+		height: 600px; border: 1px solid #CCCCCC; float: left;
+		font-weight: bold; margin: 5px;	font-size: 1.2em;
+	}
+	#content > #section{
+		width: 80%;
+	}
+	#content > #aside{
+		width: 18%;
+	}
+	
+	footer{
+		width: 90%; height: 200px; border: 1px solid #CCCCCC; font-weight: bold;
+		margin: 2px auto; font-size: 2.0em; text-align: center; height: 200px;
+	}
+	
+</style>
+</head>
+<body>
+ 	<header>
+        <div id="gnb">
+            <ul>
+                <li><a href="#none">gnb01</a></li>
+                <li><a href="#none">gnb02</a></li>
+                <li><a href="#none">gnb03</a></li>
+                <li><a href="#none">gnb04</a></li>
+                <li><a href="#none">gnb05</a></li>
+            </ul>
+        </div>
+        <div id="lnb">
+            <ul>
+                <li><a href="#none">lnb01</a></li>
+                <li><a href="#none">lnb02</a></li>
+                <li><a href="#none">lnb03</a></li>
+                <li><a href="#none">lnb04</a></li>
+                <li><a href="#none">lnb05</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div id="content">
+        <div id="section"> It is a professional display space in which exhibitions under diverse subjects including the cultural contents are held. Such exhibitions include the ARTTOON ART, Exhibition for 100 Modern Cartoonists of Korea, and SF Mania Exhibition. </div>
+        <div id="aside"> It is equipped with a stop-motion animation experience space and experience display room in which it is possible to create an animation video clip of one’s own by creating a character in clay and taking photos with a camera. </div>
+    </div>
+    
+    <footer>office information</footer>
+</body>
+</html>

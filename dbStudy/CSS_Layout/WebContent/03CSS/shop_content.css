@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+#content{
+	width: 1024px;	margin: 5px auto;
+	border: 1px solid red; overflow: hidden;
+}
+
+#content .section1 .slide_banner, 
+#content .section1 .side_banner
+{
+	height: 400px; text-align: center; 
+	line-height: 400px; float: left;
+	border: 1px solid #CCCCCC;
+}
+
+#content .section1 .slide_banner{width: 700px; margin-right: 20px;}
+#content .section1 .side_banner{width: 300px;}
+
+#content .section2 .hit_product, 
+#content .section2 .md_product{
+	width: 1024px;	border: 1px solid blue;
+	margin-top: 5px; overflow: hidden;
+}
+
+#content .hit_product li,
+#content  .md_product li{
+	width: 250px; height: 500px; float: left; 
+	border: 1px solid #CCCCCC; line-height: 500px; 
+	text-align: center; margin-right: 4px;
+}
+
+#content .hit_product ul:last-child,
+#content  .md_product ul:last-child{
+	margin-right: 0px;
+}
+
+
+
+
+
+
+
+
+
+

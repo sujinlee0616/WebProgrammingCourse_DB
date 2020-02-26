@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+*{margin: 0px;}
+a{text-decoration: none;}
+li{list-style-type: none;}
+ul{padding-left: 0;}
+
+header{
+	border: 1px solid #CCCCCC;
+	width: 100%;
+}
+
+#header_nav{
+	width: 100%;  background-color: #2d1152;
+	border: 0px solid blue;
+	overflow: hidden;
+}
+
+#header_nav .list li{
+	font-size: 0.9em;  color: #FFFFFF;
+	width: 60px; text-align: center;
+	height: 50px; line-height: 50px;
+	float: left;	
+	margin-left: 20px;
+}
+
+#header_nav .fireFox{
+	font-size: 0.9em; color: #FFFFFF; float: right;
+	height: 50px; line-height: 50px;
+	margin-right: 20px;
+}
+
+#header_info{
+	border: 0px solid orange;
+	width: 1024px; height: 70px; margin: 0px auto;
+	overflow: hidden;
+}
+
+#header_info img{
+	width: 150px; height: 50px; margin: 10px;
+}
+#header_info div{
+	float: left; 
+}
+#header_info .search{
+	margin: 20px 20px;
+}
+#header_info .search input[type="text"]{
+	width: 250px; font-size: 20px; border: 1px solid #3488d9;
+	height: 30px; 
+}
+#header_info .search input[type="button"]{
+	width: 120px; height: 33px; 
+	background-image: url("./../images/yahoo_search_btn.png");
+	/* background-color: #7934f7; */
+	color: #FFFFFF; font-size: 1.2em;
+}
+
+#header_info .service li{
+	float: left; margin: 12px 15px 0 0;
+	height: 50px; line-height: 50px;
+}
+
+
+
+
+
+
