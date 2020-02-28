@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function sub(){
+		window.alert("sub function입니다.");
+	}
+	function dlSub(){
+		window.alert("dlSub function입니다.");
+	//  =====  =====
+	//   객체        함수        // window 내장 객체는 생략해도 됨 
+	}
+	
+	function aa(){
+		var value=window.prompt("원하는 숫자를 넣으세요", "정수형 1~10까지 수만 입력");
+		window.alert(value);
+	}
+	
+	function bb(){
+		var result=window.confirm("정말로 삭제하시겠습니까?");
+		//alert(result);
+		if(result==true){
+			window.alert("삭제되었습니다.");
+		}
+		else{
+			window.alert("삭제되지 않았습니다");
+		}
+	}
+	
+	function cc(a,b,str){
+		var r=a+","+b+","+str;
+		alert(r);
+	}
+	
+	function dd(obj){
+		obj.type="text"; //onclick하면 확인07 버튼의 input type이 text로 바뀐다.
+		obj.style.color="red";
+		obj.style.fontSize="20px";
+	}
+	function bigText(obj){
+		obj.style.color="blue";
+		obj.style.fontSize="40px";
+	}
+	function normalText(obj){
+		obj.style.color="red";
+		obj.style.fontSize="9px";
+	}
+	
+</script>
+</head>
+<body>
+	<input type="button" value="확인합니다.^^" onclick="sub()"/>  <!-- onclick="함수명" -->
+	<br/><br/>
+	
+	<a href="#">
+		<span onclick="sub()">마우스를 클릭하세요.</span>
+	</a>
+	<br/><br/>
+	
+	<input type="button" value="확인01" onmousedown="sub()"/> <!-- 보통 onclick 쓰지 onmousedown/onmouseup 잘 안 씀 -->
+	<input type="button" value="확인02" onmouseup="sub()"/> 
+	<input type="button" value="확인03" ondblclick="dlSub()"/> 
+	<br/><br/>
+	
+	<input type="button" value="확인04" onclick="aa()"/>
+	<input type="button" value="확인05" onclick="bb()"/>
+	<input type="button" value="확인06" onclick="cc(10, 20, 'apple')"/>   <!-- 밖이 ""이면 안에는 ''써야. 반대로, 밖이 ''이면 안에는 ""써야.  -->
+	<br/><br/>
+	
+	<input type="button" value="확인07" onclick="dd(this)"/>
+	<br/><br/>
+	
+	<a href="#" style="text-decoration: none;">
+		<span style="font-size: 20px;" onmouseover="bigText(this)" onmouseout="normalText(this)"/>
+		안녕하세요.
+		</span>
+	</a>
+
+</body>
+</html>
+
+
+
+
+

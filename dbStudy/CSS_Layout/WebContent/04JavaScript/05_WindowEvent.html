@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function windOpen(){
+		//alert("OK");
+		window.open("https://www.naver.com/", "네이버☆★", "width=300px, height=200px, scrollbars=yes"); 
+		// window.open("URL 주소", "윈도우 이름", "가로/세로 스크롤"); 
+		// 본 HTML 창 뜨자마자 다른창 띄운다 ==> ex) 공지사항 띄울 때, ID 중복체크할 때, 우편번호 검색 시 많이 사용됨.
+	}
+	function winOpen1(){
+		window.open("http://localhost/CSS_Layout/04JavaScript/04_KeyEvent.html", "4번 HTML", "width=500px, height=500px, scrollbars=yes");
+	}
+</script>
+</head>
+<body onload="windOpen()">
+	<input type="button" value="클릭" onclick="winOpen1()"/>
+	<!-- 버튼 클릭 시 winOpen1(새 창) 실행 --> 
+</body>
+</html>
