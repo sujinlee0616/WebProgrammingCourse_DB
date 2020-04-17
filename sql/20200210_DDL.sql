@@ -47,7 +47,7 @@
     ex) 게시물 작성 날짜(오늘 날짜), 게시물 조회수(0) 
 
 4. ALTER: 테이블 수정, 삭제, 추가 (컬럼뿐만 아니라 제약조건도 수정 가능.)
- ALTER => MODIFY, DROP, ADD
+ - ALTER => MODIFY, DROP, ADD
  
 5. DROP: 테이블 완전 삭제
  - 형식 : DROP TABLE table명 

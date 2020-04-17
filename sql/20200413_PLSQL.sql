@@ -74,7 +74,7 @@
     4. SQL 
 
 */
-SET SERVEROUT ON
+SET SERVEROUTPUT ON
 DECLARE
     vempno NUMBER(4);
     vename VARCHAR2(20);
